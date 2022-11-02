@@ -5,7 +5,7 @@
 {% endif %}
 
 {% if include.material.slides %}
-    <div class="btn-group">
+<div class="btn-group">
 	<a class="visually-hidden" href="{{ site.baseurl }}/topics/{{ include.topic }}/{{subfolder}}{% unless include.material.type == 'introduction' %}/{{ include.material.tutorial_name }}{% endunless %}/slides-plain.html" aria-label="more accessible, plain text slides">plain text</a>
 	</div>
     <div class="btn-group">
@@ -48,8 +48,8 @@
 	</a>
 	</li>
     </ul>
-    {% endif %}
-    </div>
+</div>
+{% endif %}
 
 <!-- video slides -->
 {% if include.material.video %}
@@ -59,9 +59,8 @@
     {% icon video-slides aria=false %}
   </a>
 
-
-  <!-- add dropdown with links to different languages for the video-->
   {% if translations > 0 %}
+  <!-- add dropdown with links to different languages for the video-->
   <a href="#" class="btn btn-default dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="sr-only">Toggle Dropdown</span>
   </a>
@@ -73,10 +72,8 @@
          {{language[lang]}}
       </a>
       {% endfor %}
-
   </ul>
   {% endif %}
-</div>
-{% endif %}
 
 </div>
+{% endif %}
