@@ -50,7 +50,7 @@ layout: base
           {% for subtopic in topic.subtopics %}
             {% if subtopic.enable != false or jekyll.environment != "production" %}
               <h3 id="st-{{ subtopic.title | slugify }}">{{ subtopic.title}}</h3>
-              {% if topic[1].enable == false %} <div class="label label-default tutorial_tag" style="{{ 'work-in-progress' | colour_tag }}">work-in-progress</div>{% endif %}{{ subtopic.description }} </br></br>
+              {% if topic[1].enable == false %} <div class="label label-default tutorial_tag" style="{{ 'work-in-progress' | colour_tag }}">work-in-progress</div>{% endif %}{{ subtopic.description }} <br><br>
               {% include _includes/tutorial_list.html sub=subtopic %}
             {% endif %}
           {% endfor %}
@@ -63,15 +63,15 @@ layout: base
           {% if jekyll.environment == "production" and other_tutorials_enabled.size == 0 %} {% assign show_other = false %}{% endif %}
 
           {% if show_other %}
-          </br>
+          <br>
           <div id="tutorial_list">
           <h3> Other </h3>
           <div class="search_box">
             {% icon search %}
             <input data-search-type="tutorial_title" class="search" id="tutorial_search" placeholder="Search" />
             <span id="clear_search" title="Clear filters"> {% icon galaxy-cross %} </span>
-          </div></br>
-          Assorted tutorials </br></br>
+          </div><br>
+          Assorted tutorials <br><br>
           {% include _includes/tutorial_list.html sub="other" %}
           </div>
           {% endif %}
