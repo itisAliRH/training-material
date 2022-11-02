@@ -19,7 +19,7 @@
     {% endif %}
     <link rel="stylesheet" href="{{ "/assets/css/slides.css" | prepend: site.baseurl }}">
     <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="{{ "/favicon.ico" | prepend: site.baseurl }}" type="image/x-icon" />
 
     {% assign topic = site.data[page.topic_name] %}
@@ -38,7 +38,7 @@
     <script type="application/ld+json">
       {% include _includes/material.jsonld material=page topic=topic site=site %}
     </script>
-    <script type="text/javascript" src="{{ "/assets/js/jquery.slim.min.js" | prepend: site.baseurl }}"></script>
+    <script src="{{ "/assets/js/jquery.slim.min.js" | prepend: site.baseurl }}"></script>
   </head>
   <body>
     <textarea id="source">
@@ -167,10 +167,10 @@ Useful when presenting."
 .footnote[Found a typo? Something is wrong in this tutorial? <br/>Edit it on [GitHub]({{ site.github_repository }}/tree/main{{ page.url }})]
 {% endif %}
     </textarea>
-	<script src="{{ "/assets/js/remark-latest.min.js" | prepend: site.baseurl }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ "/assets/js/theme.js" | prepend: site.baseurl }}"></script>
-    <script type="text/javascript" src="{{ "/assets/js/clipboard.min.js" | prepend: site.baseurl }}"></script>
-    <script type="text/javascript">
+	<script src="{{ "/assets/js/remark-latest.min.js" | prepend: site.baseurl }}"></script>
+    <script src="{{ "/assets/js/theme.js" | prepend: site.baseurl }}"></script>
+    <script src="{{ "/assets/js/clipboard.min.js" | prepend: site.baseurl }}"></script>
+    <script>
       var slideshow = remark.create({navigation: {scroll: false}, ratio: '16:9'});
       var hljs = remark.highlighter.engine;
       var snippets = document.querySelectorAll('code.remark-code');
@@ -182,7 +182,7 @@ Useful when presenting."
       }});
     </script>
 
-    <script type="text/javascript">
+    <script>
         if(window.location.hostname === "galaxyproject.github.io") {
             // Redirect
             var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
