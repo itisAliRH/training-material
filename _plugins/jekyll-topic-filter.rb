@@ -135,9 +135,8 @@ module TopicFilter
         tutorial_translations = page.data.fetch('translations', [])
       end
 
-      # If no tutorial OR slides are found, then we have an issue
+      # If no tutorial OR slides are found, then we have an empty folder, that's fine.
       if page == false then
-        puts "Error? No tutorial OR slides found in #{folder}. We saw #{known_pages.keys}"
         next
       end
 
