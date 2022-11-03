@@ -550,6 +550,11 @@ footer {
 .navbar {
     background-color: $bg-color!important;
 
+    // Text decoration not necessary for accessibility here.
+    a {
+        text-decoration: none;
+    }
+
     .navbar-collapse {
         justify-content: flex-end;
         align-items: flex-end;
@@ -1040,18 +1045,18 @@ nav[data-toggle='toc'] {
         .nav li {
             a,
             .active {
-                padding-left: 10px;
+                padding-left: 0px;
                 &:hover,
                 &:focus,
                 &:active{
-                    padding-left: 10px;
+                    padding-left: 0px;
                 }
             }
 
             &:hover,
             &:focus,
             &:active{
-                padding-left: 10px;
+                padding-left: 0px;
             }
         }
     }
