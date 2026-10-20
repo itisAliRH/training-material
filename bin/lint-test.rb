@@ -131,4 +131,15 @@ class Gtn::Linter::Test < Test::Unit::TestCase
     # assert_equal(result[0]['suggestions'][0]['range']['end']['line'], 2)
     # assert_equal(result[0]['suggestions'][0]['range']['end']['column'], 9 + url.length)
   end
+
+  def test_slides_links_skip_front_matter
+    url = 'https://training.galaxyproject.org/training-material/topics/admin/tutorials/ansible-galaxy/slides.html'
+    text = "---\nkey_points:\n  - \"[test](#{url})\"\n---\na[test](#{url})b".split "\n"
+    result = Gtn::Linter.fix_slides(text)
+
+    assert_equal(result.length, 1)
+    assert_equal(result[0]['location']['range']['start']['line'], 5)
+    assert_equal(result[0]['suggestions'][0]['text'],
+                 '{% link topics/admin/tutorials/ansible-galaxy/slides.html %}')
+  end
 end
