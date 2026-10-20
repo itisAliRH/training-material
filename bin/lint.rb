@@ -1197,6 +1197,20 @@ module Gtn
       ]
     end
 
+    # Slides only get the GTN link checks; the other checks assume tutorial markdown.
+    def self.fix_slides(contents)
+      body = contents.dup
+      # Front matter values such as key_points are not rendered with Liquid, so a link tag there would print as text.
+      if body[0]&.strip == '---'
+        fm_end = body[1..].index { |line| line.strip == '---' }
+        body.fill('', 0..(fm_end + 1)) unless fm_end.nil?
+      end
+      [
+        *link_gtn_slides_external(body),
+        *link_gtn_tutorial_external(body)
+      ]
+    end
+
     def self.bib_missing_mandatory_fields(bib)
       results = []
       bib.each do |x|
@@ -1488,6 +1502,13 @@ module Gtn
 
         results = filter_results(results, ignores)
         emit_results(results)
+      when %r{/slides[^/]*\.html$}
+        contents = File.read(path).split("\n")
+        ignores = should_ignore(contents)
+        results = fix_slides(contents)
+
+        results = filter_results(results, ignores)
+        emit_results(results)
       when /.bib$/
         handle = File.open(path, 'r')
         contents = handle.read.split("\n")
@@ -1601,9 +1622,8 @@ module Gtn
     end
 
     def self.enumerate_lintable
-      enumerate_type(/bib$/) + enumerate_type(/md$/) + enumerate_type(/md$/,
-                                                                      root_dir: 'faqs') + enumerate_type(/md$/,
-                                                                                                         root_dir: 'news')
+      enumerate_type(/bib$/) + enumerate_type(/md$/) + enumerate_type(%r{/slides[^/]*\.html$}) +
+        enumerate_type(/md$/, root_dir: 'faqs') + enumerate_type(/md$/, root_dir: 'news')
     end
 
     def self.enumerate_all
