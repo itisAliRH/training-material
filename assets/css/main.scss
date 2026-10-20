@@ -1462,6 +1462,12 @@ body.galaxy-proxy-active {
 			background-color: var(--hyperlink);
 			border-color: var(--hyperlink);
 		}
+
+		// The offset puts the ring on the page background, so it stays visible on any brand colour.
+		&:focus-visible {
+			outline: var(--outline-color) 3px solid;
+			outline-offset: 2px;
+		}
 	}
 }
 
