@@ -49,12 +49,12 @@ module Jekyll
           version = tool.split('/').last
 
           if tool.count('/').zero?
-            "<span class=\"tool\" data-tool=\"#{tool}\" title=\"#{m[1]} tool\" aria-role=\"button\">" \
+            "<span class=\"tool\" data-tool=\"#{tool}\" title=\"#{m[1]} tool\">" \
               '<i class="fas fa-wrench" aria-hidden="true"></i> ' \
               "<strong>#{m[1]}</strong>" \
               '</span>'
           else
-            "<span class=\"tool\" data-tool=\"#{tool}\" title=\"#{m[1]} tool\" aria-role=\"button\">" \
+            "<span class=\"tool\" data-tool=\"#{tool}\" title=\"#{m[1]} tool\">" \
               '<i class="fas fa-wrench" aria-hidden="true"></i> ' \
               "<strong>#{m[1]}</strong> " \
               '(' \
