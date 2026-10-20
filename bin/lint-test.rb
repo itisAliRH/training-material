@@ -83,6 +83,18 @@ class Gtn::Linter::Test < Test::Unit::TestCase
     assert_equal(result[0]['suggestions'][0]['range']['end']['column'], 9 + url.length)
   end
 
+  def test_external_gtn_link_slides_two_on_one_line
+    first = 'https://training.galaxyproject.org/training-material/topics/admin/tutorials/ansible/slides.html'
+    second = 'https://training.galaxyproject.org/training-material/topics/admin/tutorials/ansible-galaxy/slides.html'
+    text = ["[a](#{first}) and [b](#{second})"]
+    result = Gtn::Linter.link_gtn_slides_external(text)
+
+    assert_equal(result[0]['location']['range']['start']['column'], 5)
+    assert_equal(result[0]['location']['range']['end']['column'], 5 + first.length)
+    assert_equal(result[0]['suggestions'][0]['text'],
+                 '{% link topics/admin/tutorials/ansible/slides.html %}')
+  end
+
   def test_doi
     text = "a\nfrom [Pedro Larrañaga, 2006](https://doi.org/10.1093/bib/bbk007).\nasdf".split "\n"
     #          123456789012345678901234567890123456789012345678901234567890123456789012345678901234567
