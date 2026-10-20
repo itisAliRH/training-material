@@ -238,7 +238,7 @@ module Gtn
     def self.link_gtn_slides_external(contents)
       find_matching_texts(
         contents,
-        %r{\((https?://(training.galaxyproject.org|galaxyproject.github.io)/training-material/(.*slides.html)([#?][^)]*)?)\)}
+        %r{\((https?://(training.galaxyproject.org|galaxyproject.github.io)/training-material/([^)#?]*slides\.html)([#?][^)]*)?)\)}
       )
         .map do |idx, _text, selected|
         ReviewDogEmitter.error(
