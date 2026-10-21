@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+require 'stringio'
 require 'test/unit'
+require 'tmpdir'
 require './bin/lint'
 
 # Test case for the GTN linter
@@ -141,5 +144,31 @@ class Gtn::Linter::Test < Test::Unit::TestCase
     assert_equal(result[0]['location']['range']['start']['line'], 5)
     assert_equal(result[0]['suggestions'][0]['text'],
                  '{% link topics/admin/tutorials/ansible-galaxy/slides.html %}')
+  end
+
+  def capture_stdout
+    original = $stdout
+    $stdout = StringIO.new
+    yield
+    $stdout.string
+  ensure
+    $stdout = original
+  end
+
+  def test_fix_file_lints_tutorial_and_topic_slides
+    url = 'https://training.galaxyproject.org/training-material/topics/admin/tutorials/ansible-galaxy/slides.html'
+    Dir.mktmpdir do |dir|
+      codes = %w[tutorials/t/slides.html tutorials/t/slides_ES.html slides/introduction.html
+                 tutorials/t/other.html].to_h do |rel|
+        path = File.join(dir, 'topics', 'x', rel)
+        FileUtils.mkdir_p(File.dirname(path))
+        File.write(path, "a[test](#{url})b\n")
+        output = capture_stdout { Gtn::Linter.fix_file(path) }
+        [rel, output.lines.map { |line| JSON.parse(line)['code']['value'] }]
+      end
+
+      assert_equal({ 'tutorials/t/slides.html' => ['GTN:003'], 'tutorials/t/slides_ES.html' => ['GTN:003'],
+                     'slides/introduction.html' => ['GTN:003'], 'tutorials/t/other.html' => [] }, codes)
+    end
   end
 end
