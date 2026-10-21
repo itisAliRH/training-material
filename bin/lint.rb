@@ -1197,6 +1197,9 @@ module Gtn
       ]
     end
 
+    # Tutorial slides (slides.html, slides_ES.html) and topic-level slides (slides/introduction.html).
+    SLIDES_HTML = %r{/slides(?:[^/]*|/[^/]*)\.html$}
+
     # Slides only get the GTN link checks; the other checks assume tutorial markdown.
     def self.fix_slides(contents)
       body = contents.dup
@@ -1502,7 +1505,7 @@ module Gtn
 
         results = filter_results(results, ignores)
         emit_results(results)
-      when %r{/slides[^/]*\.html$}
+      when SLIDES_HTML
         contents = File.read(path).split("\n")
         ignores = should_ignore(contents)
         results = fix_slides(contents)
@@ -1622,7 +1625,7 @@ module Gtn
     end
 
     def self.enumerate_lintable
-      enumerate_type(/bib$/) + enumerate_type(/md$/) + enumerate_type(%r{/slides[^/]*\.html$}) +
+      enumerate_type(/bib$/) + enumerate_type(/md$/) + enumerate_type(SLIDES_HTML) +
         enumerate_type(/md$/, root_dir: 'faqs') + enumerate_type(/md$/, root_dir: 'news')
     end
 
